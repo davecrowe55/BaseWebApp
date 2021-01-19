@@ -25,13 +25,19 @@
 <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+<script src="/__/firebase/8.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+<script src="/__/firebase/8.2.3/firebase-auth.js"></script>
+  <script src="/__/firebase/8.2.3/firebase-firestore.js"></script>
+  <script src="/__/firebase/init.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+
 
 <script>
+  import fb from "firebase/app"
+export const firebase = !fb.apps.length ? fb.initializeApp(firebaseConfig) : fb.app()
+  import * as firebase from "firebase";
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   var firebaseConfig = {
@@ -44,12 +50,41 @@
     appId: "<%= process.env.FIREBASE_API_ID %>",
     measurementId: "G-YFG35JEVHT"
   };
+
+// we skip the "already exists" message which is
+// not an actual error when we're hot-reloading
+if (!/already exists/.test(err.message)) {
+console.error('Firebase initialization error raised', err.stack)
+
+const firebaseApp= firebase;
   // Initialize Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp({});
+}
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 </script>
+
+<script>
+  var firebaseConfig = {
+    apiKey: "<%= process.env.API_KEY %>",
+    authDomain: "base-web-app-852d7.firebaseapp.com",
+    databaseURL: "https://base-web-app-852d7-default-rtdb.firebaseio.com",
+    projectId: "base-web-app-852d7",
+    storageBucket: "base-web-app-852d7.appspot.com",
+    messagingSenderId: "164456799690",
+    appId: "<%= process.env.FIREBASE_API_ID %>",
+    measurementId: "G-YFG35JEVHT"
+  };
+  const firebaseApp= firebase;
+  </script>
 
 <!-- Initialize Firebase -->
 <script src="/__/firebase/init.js"></script>
 <!-- then our app's own js file -->
 <script src="js/main.js"></script>
+<script src="scripts/auth.js"></script> 
+<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+<script src="/__/firebase/init.js"></script>
+<script src="app.js"></script>
+<script src="bower_components/firebaseui/dist/firebaseui.js"></script>
